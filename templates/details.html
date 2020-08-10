@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block details %}
+<li class="xuanzhong">
+    <a href="../../details/">详请</a>
+    <img src="../../static/public/img/xuanzhong.png" class="bg-zhong" style="margin-left:-2px;">
+</li>
+{% endblock %}
+
+{% block body %}
+<body style="background:#0b0d24;">
+    <div id="wrapper" class="home-page">
+
+        <!-- <header class="main-header" th:replace="common/header :: details"></header> -->
+        <!--<div style = "margin-left: 5%;margin-top: 10px;font-size: 18px;font-weight: bold;" ><a href="/index" style = "color:#e1a842">返回</a></div>-->
+        <!-- 内容 -->
+        <div class="zhong_nei" style="margin-top:120px;">
+            <div class="row shang">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 fen_you">
+                    <form role="form"  method="get" class="form form-inline form-search fen_tt">
+                        <div class="form-group " style="margin-left:20px;">
+                            <div class="input-group">
+                                <label for="" class="control-label tt">时间：</label>
+                                <!--<input type="text" class="form-control" style="width:285px" aria-label="..." placeholder="......."  id="time1">-->
+                                <input  class="input_time"  id="startTime" name="startTime">&nbsp;—
+                                <input  class="input_time"  id="endTime" name="endTime">
+
+                            </div><!-- /input-group -->
+                        </div><!-- /.col-lg-3 -->
+
+                        <div class="form-group " style="margin-left:20px;">
+                            <label for="" class="control-label tt">省份：</label>
+                            <select name="areaName" id="areaName" class="form-control">
+                                <option selected="selected" value="全部">全部</option>
+                                <option  value="北京">北京</option>
+                                <option  value="上海">上海</option>
+                                <option  value="广东">广东</option>
+                            </select>
+                        </div>
+                        <div class="form-group " style="margin-left:20px;">
+                            <label for="" class="control-label tt">局点：</label>
+                            <select name="point" id="point" class="form-control">
+                                <!--<option selected="selected" value="">全部</option>-->
+                                <!--<option th:each="point:${pointNameList}" th:value="${point}" th:text="${point}" />-->
+                            </select>
+                        </div>
+
+                        <div class="form-group " style="margin-left:20px;">
+                            <label for="" class="control-label tt">告警类别：</label>
+                            <select name="alarmType" id="alarmType" class="form-control">
+                                <option selected="selected" value="">全部</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" style="margin-left:20px;">
+                            <button id="queryButton" type="button" class="btn btn-primary">
+                                <i class="layui-icon layui-icon-search"></i> 查询
+                            </button>
+                        </div>
+                        <div class="form-group" style="margin-left:20px;">
+                            <button id="exportButton" type="button" onclick="settime(this)" class="btn btn-primary">
+                                <i class="layui-icon layui-icon-search"></i> <span id = "export" >导出</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div><!-- <div class="row shang"> -->
+        <div class="row shang" style="margin-top:20px;">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 daily_ri">
+                <div class="biaob">详情</div>
+                <table id="list_table"></table>
+            </div>
+        </div>
+        </div>
+    </div>
+
+</body>
+{% endblock %}
+
+{% block extra %}
+<script type="text/javascript" src="../../static/public/js/details.js"></script>
+{% endblock %}
+

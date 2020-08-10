@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block index %}                      
+<li class="xuanzhong">
+	<a href="../../index/">首页</a>
+	<img src="../../static/public/img/xuanzhong.png" class="bg-zhong" style="margin-left:-2px;">
+</li>
+{% endblock %}
+
+{% block body %}
+<body style="background:#0b0d24;">
+	<div id="wrapper" class="home-page">
+		<!-- start header -->
+		<!-- <header class="main-header" th:replace="common/header :: index"></header>   dddd -->
+
+		<!-- 内容 -->
+		<div class="zhong_nei" style="margin-top:120px;">
+			<div class="row shang">
+				<div id= "bj_alarm" onclick="updateAlarm(this.id)" class="col-xs-4 col-sm-4 col-md-4 col-lg-4 zuo">
+					<div class="biaob">北京市</div>
+					<div class="dang43" style="z-index: 1;margin-left: 252px;"id="bj_alarm_regin">
+
+					</div>
+					<div id="beij" style="width:100%;height:335px;"></div>
+				</div>
+				<div id= "sh_alarm" onclick="updateAlarm(this.id)" class="col-xs-4 col-sm-4 col-md-4 col-lg-4 zuo" style="margin-left:0px;">
+					<div class="biaob">上海市</div>
+					<div class="dang43" style="z-index: 1;margin-left: 252px;" id="sh_alarm_regin">
+					</div>
+					<div id="shangh" style="width:100%;height:335px;"></div>
+				</div>
+				<div id= "gd_alarm" onclick="updateAlarm(this.id)" class="col-xs-4 col-sm-4 col-md-4 col-lg-4 zuo" style="margin-left:0px;">
+					<div class="biaob">广东省</div>
+					<div class="dang43" style="z-index: 1;margin-left: 252px;" id="gd_alarm_regin">
+					</div>
+					<div id="guangd" style="width:100%;height:335px;"></div>
+				</div>
+			</div>
+			<div class="row shang">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 you">
+					<div class="biaob">告警详情</div>
+					<!--<div id="toolbar" style="height:23px"><button id="queryAll" type="button" class="ban ban-primary" >全部告警</button></div>-->
+					<div class="nav-tabs-custom pull-right " style="margin-bottom:5px;margin-right: 35px;margin-top: -13px;">
+							<button id="queryAll" type="button" class="ban ban-primary" >全部告警</button>
+					</div>
+					<table id="list_table" class="table_list_box"></table>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- footer -->
+		<div id="bg-footer">长安通信科技有限责任公司</div>
+		
+
+	</div>
+
+	<div id="detail" style="display:none;"><table id="list_detail" style="background-color:#0d1735" ></table></div>
+</body>
+{% endblock %}
+
+{% block extra %}
+<script type="text/javascript" src="../../static/public/js/area_detail.js"></script>
+<script type="text/javascript" src="../../static/public/js/beijing/beijing.js"></script>
+<script type="text/javascript" src="../../static/public/js/beijing/provinceChart.js"></script>
+<script type="text/javascript" src="../../static/public/js/shanghai/shanghai.js"></script>
+<script type="text/javascript" src="../../static/public/js/shanghai/provinceChart.js"></script>
+<script type="text/javascript" src="../../static/public/js/guangdong/guangdong.js"></script>
+<script type="text/javascript" src="../../static/public/js/guangdong/provinceChart.js"></script>
+<script type="text/javascript" src="../../static/public/js/index.js"></script>
+
+<style type="text/css">
+	.table_list_box{
+		table-layout:fixed !important;
+	}
+
+	.ban-primary {
+		color: #fff;
+		background-color: #428bca;
+		border-color: #357ebd;
+	}
+
+	.ban {
+		display: inline-block;
+		margin-bottom: 0;
+		font-weight: 300;
+		text-align: center;
+		vertical-align: middle;
+		cursor: pointer;
+		background-image: none;
+		border: 1px solid transparent;
+		white-space: nowrap;
+		padding: 6px 10px;
+		font-size: 8px;
+		line-height: 1.428571429;
+		border-radius: 4px;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		-o-user-select: none;
+		user-select: none;
+	}
+</style>
+{% endblock %}

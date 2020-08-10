@@ -1,0 +1,5 @@
+**/*.pyc
+**/*.sqlite3
+**/logs
+**/reportImg
+**/mouth_report.docx
