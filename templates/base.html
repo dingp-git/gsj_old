@@ -79,7 +79,7 @@
                     <!--<li><a onclick="'javascript:show(\'\')'">问题反馈</a></li>-->
                     <!--<li><a onclick="'javascript:show(\'\')'">帮助</a></li>-->
                     <li><a onclick="'javascript:show(\'\')'">|</a></li>
-
+                    {% block login %}
                     <li>
                         <a href="#" data-toggle="dropdown">
                             <span class="glyphicon glyphicon-user hidden-xs" utext="${session.currentUser.orgName + ' - '+ session.currentUser.userName}"></span>
@@ -94,6 +94,7 @@
                             </li>
                         </ul>
                     </li>
+                    {% endblock %}
                 </ul>
             </div>
         </div>

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from clickhouse_driver import Client
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -131,8 +131,6 @@ class GetPoints(APIView):
 
 # detail/获取告警信息详情
 seTime = time.strftime("%Y-%m-%d", time.localtime())  # 获取当前时间
-
-
 class GetDetailsData(APIView):
 
     def get(self, request):
@@ -282,19 +280,106 @@ class GetReportImg(APIView):
         exportDocx.exportDocx()
         return HttpResponse(srcList)
 
-
-def login(request):
-    return render(request, 'login.html')
-
-
+# report/导出报表图片
 class ExportReportImg(APIView):
     def get(self, request):
         srcUrl = "../static/mouth_report.docx"
         return HttpResponse(srcUrl)
 
 
+
+# from django.views.decorators.csrf import csrf_exempt
+
+# @csrf_exempt
+# def login(request):
+#     # 用户名：admin 密码：admin123
+#     user = "admin"
+#     psd = "admin123"
+#     if request.method == "GET":
+#         return render(request,'login.html')
+#     if request.method == 'POST':
+#         # request  <WSGIRequest: POST '/login/'>
+#         # request.POST <QueryDict: {'username': ['admin'], 'password': ['admin123']}>
+#         print(1111,request.COOKIES)
+#         print(2222,request.session)
+#         print(3333,request.user.username)
+        
+
+#         # next_url = request.get_full_path()
+#         # print(4444,next_url)
+#         username = request.POST.get('username')
+#         password = request.POST.get('password')
+
+#         msg = ""
+#         if username and password:
+#             username = username.strip()
+#             if password == psd:
+#                 next_url = request.GET.get("next")
+#                 print(9999,next_url)
+#                 # request.session['username'] = username
+#                 # request.session['password'] = password
+#                 response = redirect('index')
+#                 response.set_cookie('username',username,3600)
+#                 response.set_cookie('password',password,3600)
+
+#                 # response   <HttpResponseRedirect status_code=302, "text/html; charset=utf-8", url="/index/">
+#                 print(66666,request)
+#                 print(66666,response)
+
+#                 return response
+#             else:
+#                 return render(request,'login.html',{'msg':'您输入的密码不正确，请重试！'})
+#         else:
+#             return render(request,'login.html',{'msg':'账户或密码为空'})
+
+
+from django.views.decorators.csrf import csrf_exempt
+from Gsj_Web.middlewares.my_middleware import AuthMiddleWare
+
+@csrf_exempt
+def login(request):
+    msg = ""
+    if request.method == "POST":
+        user = "admin"
+        psd = "admin123"
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+
+        if username == user and password == psd:
+            
+            # response = redirect("index")
+            # # 设置cookie
+            # response.set_cookie('username',username,1800)
+            # response.set_cookie('password',password,1800)
+            # 设置session  保存登陆状态
+            request.session["is_login"] = True
+            request.session["username"] = username
+            # request.session.set_expiry(1800)
+          
+            # url = request.GET.get('url')
+            # if url:
+            #     return redirect(url)
+            return redirect("index")
+        else:
+            msg = "用户名或密码错误，请重试！"
+            return render(request,'login.html',{'msg':msg})
+    else:
+        return render(request, "login.html")
+
+
+def logout(request):
+    # 删除所有当前请求相关的session
+    request.session.delete()
+    return redirect("login")
+
+
 def index(request):
-    return render(request, 'index.html')
+
+    if request.session.get('is_login',None):
+        username = request.session.get('username')
+        return render(request,"index.html",{"username":username})
+    else:
+        return redirect("login")
 
 
 def details(request):

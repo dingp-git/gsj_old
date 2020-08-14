@@ -41,10 +41,12 @@ urlpatterns = [
 
 
     # url(r'echarts/',views.echarts),
-    url(r'index/',views.index),
-    url(r'details/',views.details),
-    url(r'analysis/',views.analysis),
-    url(r'login/',views.login),
-    url(r'original/',views.original),
-    url(r'report/',views.report),
+    url(r'index/',views.index,name='index'),
+    url(r'details/',views.details,name='details'),
+    url(r'analysis/',views.analysis,name='analysis'),
+    url(r'login/',views.login,name='login'),
+    url(r'logout/',views.logout,name='logout'),
+
+    url(r'original/',views.original,name='original'),
+    url(r'report/',views.report,name='report'),
 ]

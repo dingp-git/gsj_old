@@ -26,7 +26,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+APPEND_SLASH=False
 # Application definition
 
 INSTALLED_APPS = [
@@ -47,6 +47,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'Gsj_Web.middlewares.my_middleware.AuthMiddleWare',
 ]
 
 ROOT_URLCONF = 'Gsj_Web.urls'
@@ -129,4 +130,10 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
+]
+
+# 白名单
+WHITE_LIST = [
+    r'^/login/$',
+    r'^/logout/$',
 ]
