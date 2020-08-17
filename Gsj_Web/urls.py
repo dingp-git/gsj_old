@@ -20,7 +20,6 @@ from Gsj_Web import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
-
     # index
     url(r'getCountAlarm/',views.GetCountAlarm.as_view()),
     url(r'getAllAlarmData/', views.GetAllAlarmData.as_view()),
@@ -30,10 +29,6 @@ urlpatterns = [
     url(r'getPoints', views.GetPoints.as_view()),
     url(r'getDetailsData', views.GetDetailsData.as_view()),
     url(r'exportDetails', views.ExportDetails.as_view()),
-
-
-    # url(r'getSelectData/', views.GetSelectData.as_view()),
-    # url(r'getActionExceptionData/', views.GetActionExceptionData.as_view()),
 
     # report
     url(r'getReportImg', views.GetReportImg.as_view()),
@@ -46,7 +41,6 @@ urlpatterns = [
     url(r'analysis/',views.analysis,name='analysis'),
     url(r'login/',views.login,name='login'),
     url(r'logout/',views.logout,name='logout'),
-
     url(r'original/',views.original,name='original'),
     url(r'report/',views.report,name='report'),
 ]

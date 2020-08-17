@@ -78,7 +78,7 @@ class GetAllAlarmData(APIView):
         total = len(tempResult)
         sql += 'limit %d,%d' % (page*limit, limit)
 
-        print(33333333333,sql)
+        # print(33333333333,sql)
         result = client.execute(sql)
         pool.close_conn(client)
         # print(1111,result)
@@ -103,7 +103,7 @@ class GetAllAlarmData(APIView):
         values = {}
         values['rows'] = datas
         values['total'] = total
-        print(444444, values)
+        # print(444444, values)
 
         return Response(values)
 
@@ -142,7 +142,7 @@ class GetDetailsData(APIView):
         # offset = int(request.GET.get('offset'))
         page = int(request.GET.get('page'))
 
-        print(pointName, 1111234455, areaName)
+        # print(pointName, 1111234455, areaName)
 
         client = pool.get_conn()
         sql = "select dev_point,detail,human_time,bus_num,error_type,flow_type,bus_dept,dev_isp,vx_ip_header_src_ip,vx_ip_header_dst_ip from dynamic_backend_alarm where 1=1 "
@@ -230,22 +230,6 @@ class ExportDetails(APIView):
         # return HttpResponse(dataList,safe=False)
 
 
-# analysis/获取下拉数据
-
-
-# analysis/业务运作违规
-# class GetActionExceptionData(APIView):
-
-#     def get(self, request):
-
-#         # data = [{'vals':12,'legend':['回流','回注']},{'vals':33,'legend':['回流','回注']}]
-#         # {'axis': ['周一','周二','周三','周四','周五','周六','周日']},
-#         data = [{'vals': 12, 'legend': ['回流', '回注']},
-#                 {'vals': 33, 'legend': ['回流', '回注']}]
-
-#         return Response(data, safe=False)
-
-
 # report/获取报表图片
 class GetReportImg(APIView):
     def get(self, request):
@@ -287,78 +271,22 @@ class ExportReportImg(APIView):
         return HttpResponse(srcUrl)
 
 
-
-# from django.views.decorators.csrf import csrf_exempt
-
-# @csrf_exempt
-# def login(request):
-#     # 用户名：admin 密码：admin123
-#     user = "admin"
-#     psd = "admin123"
-#     if request.method == "GET":
-#         return render(request,'login.html')
-#     if request.method == 'POST':
-#         # request  <WSGIRequest: POST '/login/'>
-#         # request.POST <QueryDict: {'username': ['admin'], 'password': ['admin123']}>
-#         print(1111,request.COOKIES)
-#         print(2222,request.session)
-#         print(3333,request.user.username)
-        
-
-#         # next_url = request.get_full_path()
-#         # print(4444,next_url)
-#         username = request.POST.get('username')
-#         password = request.POST.get('password')
-
-#         msg = ""
-#         if username and password:
-#             username = username.strip()
-#             if password == psd:
-#                 next_url = request.GET.get("next")
-#                 print(9999,next_url)
-#                 # request.session['username'] = username
-#                 # request.session['password'] = password
-#                 response = redirect('index')
-#                 response.set_cookie('username',username,3600)
-#                 response.set_cookie('password',password,3600)
-
-#                 # response   <HttpResponseRedirect status_code=302, "text/html; charset=utf-8", url="/index/">
-#                 print(66666,request)
-#                 print(66666,response)
-
-#                 return response
-#             else:
-#                 return render(request,'login.html',{'msg':'您输入的密码不正确，请重试！'})
-#         else:
-#             return render(request,'login.html',{'msg':'账户或密码为空'})
-
-
 from django.views.decorators.csrf import csrf_exempt
-from Gsj_Web.middlewares.my_middleware import AuthMiddleWare
 
 @csrf_exempt
 def login(request):
     msg = ""
     if request.method == "POST":
-        user = "admin"
-        psd = "admin123"
+        user = "ding"
+        psd = "ding123"
         username = request.POST.get("username")
         password = request.POST.get("password")
 
         if username == user and password == psd:
-            
-            # response = redirect("index")
-            # # 设置cookie
-            # response.set_cookie('username',username,1800)
-            # response.set_cookie('password',password,1800)
             # 设置session  保存登陆状态
             request.session["is_login"] = True
             request.session["username"] = username
-            # request.session.set_expiry(1800)
-          
-            # url = request.GET.get('url')
-            # if url:
-            #     return redirect(url)
+            # request.session.set_expiry(0)
             return redirect("index")
         else:
             msg = "用户名或密码错误，请重试！"
@@ -366,36 +294,74 @@ def login(request):
     else:
         return render(request, "login.html")
 
+# 登陆验证之后才能访问页面 装饰器 @login_required
+# from functools import wraps
+
+# def login_required(func):
+#     @wraps(func)
+#     def inner(request,*args,**kwargs):
+#         # is_login = request.COOKIES.get('is_login') # 获取普通cookie
+#         # is_login = request.get_signed_cookie('is_login',salt='s28',default='') # 获取普通cookie
+#         print(is_login)  # 获取的是解密后的value   '1'
+
+#         if is_login != '1':
+#             # 没有登陆,跳转登陆页面
+#             # 登录后返回上次访问的页面
+#             return redirect('/login/?url={}'.format(request.path_info))
+#             # return redirect('login')
+
+#         ret = func(request,*args,**kwargs)
+#         return ret
+#     return inner
+
+
 
 def logout(request):
+
     # 删除所有当前请求相关的session
     request.session.delete()
     return redirect("login")
 
 
-def index(request):
 
+def index(request):
     if request.session.get('is_login',None):
+        # print(22222,request.session.get('is_login'))
+        # print(request.COOKIES)
+        # print(request.COOKIES.get('is_login'))
+        # print(request.get_signed_cookie('is_login',salt='s28',default=''))
         username = request.session.get('username')
+        # print(33333,username)
+
         return render(request,"index.html",{"username":username})
     else:
         return redirect("login")
 
 
 def details(request):
-    return render(request, 'details.html')
+    if request.session.get('is_login',None):
+        username = request.session.get('username')
+        return render(request, 'details.html',{"username":username})
 
 
 def analysis(request):
-    return render(request, 'analysis.html')
+    if request.session.get('is_login',None):
+        username = request.session.get('username')
+        return render(request, 'details.html',{"username":username})
 
 
 def original(request):
-    return render(request, 'original.html')
+    if request.session.get('is_login',None):
+        username = request.session.get('username')
+        return render(request, 'original.html',{"username":username})
+
 
 
 def report(request):
-    return render(request, 'report.html')
+    if request.session.get('is_login',None):
+        username = request.session.get('username')
+        return render(request, 'report.html',{"username":username})
+
 
 
 def echarts(request):

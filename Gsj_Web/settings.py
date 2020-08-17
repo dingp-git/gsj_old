@@ -135,5 +135,6 @@ STATICFILES_DIRS = [
 # 白名单
 WHITE_LIST = [
     r'^/login/$',
-    r'^/logout/$',
+    # r'^/logout/$',
+
 ]
