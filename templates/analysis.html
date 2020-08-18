@@ -1,130 +1,142 @@
-{% extends 'index.html' %}
+{% extends 'index.html' %} 
 
 {% block index %}
-    <li>
-        <a href="../../index/">首页</a>
-    </li>
-{% endblock %}
+<li>
+  <a href="../../index/">首页</a>
+</li>
+{% endblock %} 
+
 
 {% block analysis %}
 <li class="xuanzhong">
-    <a href="../../analysis/">统计分析</a>
-    <img src="../../static/public/img/xuanzhong.png" class="bg-zhong" style="margin-left:-2px;width: 110px;height: 75px;">
+    <a href="../../analysis/">原始数据详情</a>
+    <img src="../../static/public/img/xuanzhong.png" class="bg-zhong" style="margin-left:-2px;width: 145px;height: 75px;">
 </li>
 {% endblock %}
 
+
 {% block body %}
-<body style="background:#0b0d24;">
-
+  <body style="background: #0b0d24;">
     <div id="wrapper" class="home-page">
-        <!-- <header class="main-header" th:replace="common/header :: analysis"></header> -->
+      <!-- <header class="main-header" th:replace="common/header :: analysis"></header> -->
 
-        <div class="zhong_nei" style="margin-top:120px;">
-            <div class="row shang">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 fen_you">
-                    <form role="form"  method="get" class="form form-inline form-search fen_tt">
+      <div class="zhong_nei" style="margin-top: 120px;">
+        <div class="row shang">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 fen_you">
+            <form
+              role="form"
+              method="get"
+              class="form form-inline form-search fen_tt"
+            >
+              <div class="form-group">
+                <label for="" class="control-label tt">时间：</label>
+                <!--<input type="text" class="form-control" style="width:285px" aria-label="..." placeholder="......."  id="time1">-->
+                <input
+                  class="input_time"
+                  id="startTime"
+                  name="startTime"
+                />&nbsp;—
+                <input class="input_time" id="endTime" name="endTime" />
+              </div>
+              <!-- /input-group -->
 
-                        <div class="form-group">
-                            <label for="" class="control-label tt">时间：</label>
-                            <!--<input type="text" class="form-control" style="width:285px" aria-label="..." placeholder="......."  id="time1">-->
-                            <input  class="input_time"  id="startTime" name="startTime">&nbsp;—
-                            <input  class="input_time" id="endTime" name="endTime">
-                        </div><!-- /input-group -->
+              <div class="form-group" style="margin-left: 10px;">
+                <label for="" class="control-label tt">局点：</label>
+                <select name="pointName" id="pointName" class="form-control">
+                </select>
+              </div>
 
-                        <div class="form-group " style="margin-left: 10px;">
-                            <label for="" class="control-label tt">局点：</label>
-                            <select name="pointName" id="pointName" class="form-control">
-                            </select>
-                        </div>
+              <div class="form-group" style="margin-left: 20px;">
+                <label for="" class="control-label tt">业务号：</label>
+                <select name="busNum" id="busNum" class="form-control">
+                </select>
+              </div>
 
-                        <div class="form-group " style="margin-left:20px;">
-                            <label for="" class="control-label tt">业务号：</label>
-                            <select name="busNum" id="busNum" class="form-control">
-                            </select>
-                        </div>
+              <div class="form-group" style="margin-left: 20px;">
+                <label for="" class="control-label tt">处室：</label>
+                <select name="deptName" id="deptName" class="form-control">
+                </select>
+              </div>
 
-                        <div class="form-group " style="margin-left:20px;">
-                            <label for="" class="control-label tt">处室：</label>
-                            <select name="deptName" id="deptName" class="form-control">
-                            </select>
-                        </div>
+              <div class="form-group" style="margin-left: 20px;">
+                <label for="" class="control-label tt">动作类型：</label>
+                <select name="action" id="actionDesc" class="form-control">
+                  <option value="全部">全部</option>
+                  <option value="修改">修改</option>
+                  <option value="修改+注入">修改+注入</option>
+                  <option value="动态直接丢弃">动态直接丢弃</option>
+                  <!--<option value="无条件透传">无条件透传</option>Desc-->
+                  <!--<option value="无条件透传+计数">无条件透传+计数</option>-->
+                  <option value="注入">注入</option>
+                  <option value="清洗">清洗</option>
+                  <!--<option value="清洗+修改">清洗+修改</option>-->
+                  <!--<option value="清洗+注入">清洗+注入</option>-->
+                </select>
+              </div>
 
-                        <div class="form-group " style="margin-left:20px;">
-                            <label for="" class="control-label tt">动作类型：</label>
-                            <select name="action" id="actionDesc" class="form-control">
-                                <option value="全部">全部</option>
-                                <option value="修改">修改</option>
-                                <option value="修改+注入">修改+注入</option>
-                                <option value="动态直接丢弃">动态直接丢弃</option>
-                                <!--<option value="无条件透传">无条件透传</option>Desc-->
-                                <!--<option value="无条件透传+计数">无条件透传+计数</option>-->
-                                <option value="注入">注入</option>
-                                <option value="清洗">清洗</option>
-                                <!--<option value="清洗+修改">清洗+修改</option>-->
-                                <!--<option value="清洗+注入">清洗+注入</option>-->
-                            </select>
-                        </div>
+              <div class="form-group" style="margin-left: 20px;">
+                <label for="" class="control-label tt">运营商：</label>
+                <select name="isp" id="isp" class="form-control">
+                  <option value="全部">全部</option>
+                  <option value="移动">移动</option>
+                  <option value="联通">联通</option>
+                  <option value="电信">电信</option>
+                </select>
+              </div>
 
-                        <div class="form-group " style="margin-left:20px;">
-                            <label for="" class="control-label tt">运营商：</label>
-                            <select name="isp" id="isp" class="form-control">
-                                <option value="全部">全部</option>
-                                <option value="移动">移动</option>
-                                <option value="联通">联通</option>
-                                <option value="电信">电信</option>
-                            </select>
-                        </div>
+              <div class="form-group" style="margin-left: 20px;">
+                <button id="queryButton" type="button" class="btn btn-primary">
+                  <i class="layui-icon layui-icon-search"></i> 查询
+                </button>
+              </div>
 
-                        <div class="form-group" style="margin-left:20px;">
-                            <button id="queryButton" type="button" class="btn btn-primary">
-                                <i class="layui-icon layui-icon-search"></i> 查询
-                            </button>
-                        </div>
+              <div class="form-group" style="margin-left: 20px;">
+                <button id="exportButton" type="button" class="btn btn-primary">
+                  <i class="layui-icon layui-icon-search"></i> 导出
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- <div class="row shang"> -->
 
-                        <div class="form-group" style="margin-left:20px;">
-                            <button id="exportButton" type="button" class="btn btn-primary">
-                                <i class="layui-icon layui-icon-search"></i> 导出
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div><!-- <div class="row shang"> -->
-
-            <div class="row shang">
-                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 zuo_x">
-                    <div class="biaob">业务运作违规曲线图</div>
-                    <div id="action" style="width:100%;height:280px;"></div>
-                </div>
-                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 you_x">
-                    <div class="biaob">流量突变(对比)曲线图</div>
-                    <div id="huil" style="width:100%;height:280px;"></div>
-                </div>
-            </div>
-
-
-            <div class="row shang">
-                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 zuo_x">
-                    <div class="biaob">保活中断包统计曲线图</div>
-                    <div id="keepalive" style="width:100%;height:280px;"></div>
-                </div>
-                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 you_x">
-                    <div class="biaob">流量处理延时过大曲线图</div>
-                    <div id="delay" style="width:100%;height:280px;"></div>
-                </div>
-            </div>
-
-            <div id="bg-footer">长安通信科技有限责任公司</div>
+        <div class="row shang">
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 zuo_x">
+            <div class="biaob">业务运作违规曲线图</div>
+            <div id="action" style="width: 100%; height: 280px;"></div>
+          </div>
+          <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 you_x">
+            <div class="biaob">流量突变(对比)曲线图</div>
+            <div id="huil" style="width: 100%; height: 280px;"></div>
+          </div>
         </div>
 
-        <a href="#" class="scrollup"><i class="fa fa-angle-up active"></i></a>
+        <div class="row shang">
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 zuo_x">
+            <div class="biaob">保活中断包统计曲线图</div>
+            <div id="keepalive" style="width: 100%; height: 280px;"></div>
+          </div>
+          <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 you_x">
+            <div class="biaob">流量处理延时过大曲线图</div>
+            <div id="delay" style="width: 100%; height: 280px;"></div>
+          </div>
+        </div>
+
+        <div id="bg-footer">长安通信科技有限责任公司</div>
+      </div>
+
+      <a href="#" class="scrollup"><i class="fa fa-angle-up active"></i></a>
     </div>
     <!-- javascript
-        ================================================== -->
+    ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-       
-</body>
-{% endblock %}
+  </body>
+{% endblock %} 
 
 {% block extra %}
-<script type="text/javascript" src="../../static/public/js/analysis.js"></script>
+  <script
+    type="text/javascript"
+    src="../../static/public/js/analysis.js"
+  ></script>
 {% endblock %}
+

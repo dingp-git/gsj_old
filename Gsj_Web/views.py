@@ -84,8 +84,8 @@ class GetAllAlarmData(APIView):
         # print(1111,result)
 
         datas = []
-
-        for i, item in enumerate(result, start=1):
+        print(11111,limit,2222,offset,333,page)
+        for i, item in enumerate(result, start=page*limit + 1):
             dict = {}
             dict['id'] = i
             dict['pointName'] = item[0]
@@ -164,7 +164,7 @@ class GetDetailsData(APIView):
         pool.close_conn(client)
 
         datas = []
-        for i, item in enumerate(result, start=1):
+        for i, item in enumerate(result, start=page*limit + 1):
             dict = {}
             dict['id'] = i
             dict['pointName'] = item[0]
@@ -270,7 +270,6 @@ class ExportReportImg(APIView):
         srcUrl = "../static/mouth_report.docx"
         return HttpResponse(srcUrl)
 
-
 from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
@@ -314,14 +313,10 @@ def login(request):
 #         return ret
 #     return inner
 
-
-
 def logout(request):
-
     # 删除所有当前请求相关的session
     request.session.delete()
     return redirect("login")
-
 
 
 def index(request):
@@ -347,7 +342,7 @@ def details(request):
 def analysis(request):
     if request.session.get('is_login',None):
         username = request.session.get('username')
-        return render(request, 'details.html',{"username":username})
+        return render(request, 'analysis.html',{"username":username})
 
 
 def original(request):
@@ -356,12 +351,10 @@ def original(request):
         return render(request, 'original.html',{"username":username})
 
 
-
 def report(request):
     if request.session.get('is_login',None):
         username = request.session.get('username')
         return render(request, 'report.html',{"username":username})
-
 
 
 def echarts(request):

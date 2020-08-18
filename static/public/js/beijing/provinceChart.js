@@ -21,16 +21,16 @@ $(document).ready(function () {
         var res1;
         var res2;
         if (params.value[2] != null) {
-          res1 = "<p>告警总数</p>" + params.value[2];
+          res1 = "告警总数: " + params.value[2];
         } else {
-          res1 = "<p>告警总数</p>" + 0;
+          res1 = "告警总数: " + 0;
         }
         if (params.name != null) {
-          res2 = "<p>局点名称</p>" + params.name;
+          res2 = "局点名称: " + params.name;
         } else {
-          res2 = "<p>局点名称</p>" + 0;
+          res2 = "局点名称: " + 0;
         }
-        res = res1 + res2;
+        res = res1 + "<br/>" + res2;
         return res;
       },
     },
